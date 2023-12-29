@@ -6,15 +6,17 @@ import time
 
 def download_image(fileUrl):
     resp = requests.get(fileUrl)
-    #write file 
     #check dir
     if os.path.isdir("downloaded_image") == False:
         os.mkdir("downloaded_image")
     timeStampStr = time.strftime("%Y%m%d-%H%M%S")
     fileExt = os.path.splitext(fileUrl)[1]
     collectPath = "./downloaded_image/" + timeStampStr + fileExt
+    
+    #write file 
     with open(collectPath, "wb") as f:
         f.write(resp.content)
+    
     #sleep 3 seconds
     time.sleep(3)
     #check file and delete 
