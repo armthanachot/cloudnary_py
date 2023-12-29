@@ -1,12 +1,16 @@
 import cloudinary_conf as conf
 from cloudinary.uploader import upload
 import requests
+import os
 
 
 def download_image(fileUrl):
     resp = requests.get(fileUrl)
     #write file 
-    with open("downloaded_image3.jpg", "wb") as f:
+    #check dir
+    if os.path.isdir("downloaded_image") == False:
+        os.mkdir("downloaded_image")
+    with open("./downloaded_image/downloaded_image3.jpg", "wb") as f:
         f.write(resp.content)
 
 def upload_file(filename):
