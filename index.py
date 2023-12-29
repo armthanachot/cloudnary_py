@@ -3,8 +3,8 @@ from cloudinary.uploader import upload
 import requests
 
 
-def download_image():
-    resp = requests.get("https://res.cloudinary.com/mediaserver123/image/upload/v1703778214/gawyv8rmof5md6dbkgwv.jpg")
+def download_image(fileUrl):
+    resp = requests.get(fileUrl)
     #write file 
     with open("downloaded_image3.jpg", "wb") as f:
         f.write(resp.content)
@@ -19,4 +19,4 @@ if __name__ == "__main__":
     print(response)
 
     #download_image()
-    download_image()
+    download_image("https://res.cloudinary.com/mediaserver123/image/upload/v1703778214/gawyv8rmof5md6dbkgwv.jpg")
