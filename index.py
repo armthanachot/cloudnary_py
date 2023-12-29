@@ -2,7 +2,7 @@ import cloudinary_conf as conf
 from cloudinary.uploader import upload
 import requests
 import os
-
+import time
 
 def download_image(fileUrl):
     resp = requests.get(fileUrl)
@@ -10,8 +10,16 @@ def download_image(fileUrl):
     #check dir
     if os.path.isdir("downloaded_image") == False:
         os.mkdir("downloaded_image")
-    with open("./downloaded_image/downloaded_image3.jpg", "wb") as f:
+    timeStampStr = time.strftime("%Y%m%d-%H%M%S")
+    fileExt = os.path.splitext(fileUrl)[1]
+    collectPath = "./downloaded_image/" + timeStampStr + fileExt
+    with open(collectPath, "wb") as f:
         f.write(resp.content)
+    #sleep 3 seconds
+    time.sleep(3)
+    #check file and delete 
+    if os.path.isfile(collectPath) == True:
+        os.remove(collectPath)
 
 def upload_file(filename):
     return upload(filename)
